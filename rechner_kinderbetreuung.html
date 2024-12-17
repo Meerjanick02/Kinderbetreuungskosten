@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rechner für Kinderbetreuungskosten</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .result {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        #final-result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rechner für Kinderbetreuungskosten</h1>
+    <p>Geben Sie Ihre gesamten Kinderbetreuungskosten ein:</p>
+    <input type="number" id="gesamtkosten" placeholder="Gesamtkosten (€)">
+    <button onclick="berechneKosten()">Berechnen</button>
+
+    <!-- Ergebnisanzeigen -->
+    <div class="result" id="prozent-erg">80% der Gesamtkosten: 0,00 €</div>
+    <div class="result" id="max-erg">Höchstbetrag: 4800,00 €</div>
+    <div id="final-result">Abzugsfähiger Betrag: 0,00 €</div>
+
+    <script>
+        function berechneKosten() {
+            const gesamtkosten = parseFloat(document.getElementById('gesamtkosten').value);
+            const abzugsfähigerProzentsatz = 0.8; // 80%
+            const maximalAbzugsfähig = 4800.0; // Maximaler Betrag in Euro
+
+            if (isNaN(gesamtkosten) || gesamtkosten < 0) {
+                alert("Bitte geben Sie eine gültige Zahl für die Gesamtkosten ein.");
+                return;
+            }
+
+            const prozentErgebnis = gesamtkosten * abzugsfähigerProzentsatz;
+            const abzugsfähigerBetrag = Math.min(prozentErgebnis, maximalAbzugsfähig);
+
+            // Ergebnisse anzeigen
+            document.getElementById('prozent-erg').innerText = `80% der Gesamtkosten: ${prozentErgebnis.toFixed(2)} €`;
+            document.getElementById('max-erg').innerText = `Höchstbetrag: ${maximalAbzugsfähig.toFixed(2)} €`;
+            document.getElementById('final-result').innerText = `Abzugsfähiger Betrag: ${abzugsfähigerBetrag.toFixed(2)} €`;
+        }
+    </script>
+</body>
+</html>
